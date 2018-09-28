@@ -1,0 +1,13 @@
+{
+  "name": "sample-nuxt-application",
+  "scripts": {
+    "dev": "nuxt"
+  },
+  "devDependencies": {
+    "pug": "^2.0.3",
+    "pug-plain-loader": "^1.0.0"
+  },
+  "dependencies": {
+    "nuxt": "^2.0.0"
+  }
+}
