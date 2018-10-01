@@ -1,12 +1,12 @@
 <template lang="pug">
     div
       div
-        a(@click="refresh()") {{refreshing ? 'Refreshing...' : 'Refresh'}}
+        a.refresh(@click="refresh()") {{refreshing ? 'Refreshing...' : 'Refresh'}}
       div
-        table
+        table(v-if="!refreshing")
           thead
             tr
-              th preview
+              th 
               th fullname
               th email
               th birthdate
@@ -25,7 +25,7 @@
               td  
                 nuxt-link(:to="`/users/${user.login.uuid}`") view
             tr(v-if="!users.length")
-              td(colspan="6") Loading...
+              td(colspan="6") Empty
 </template>
 <script>
 import axios from 'axios'
@@ -85,3 +85,12 @@ export default {
   }
 }
 </script>
+<style scoped>
+  .refresh {
+    padding: 5px;
+    background-color: green;
+    font-weight: bold;
+    color: white;
+  }
+</style>
+
