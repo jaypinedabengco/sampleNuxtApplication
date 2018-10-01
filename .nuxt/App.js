@@ -1,10 +1,14 @@
 import Vue from 'vue'
 import NuxtLoading from './components/nuxt-loading.vue'
 
+import '../assets/main.css'
 
-import _6f6c098b from './layouts/default.vue'
 
-const layouts = { "_default": _6f6c098b }
+import _2d217e9e from '../layouts/auth.vue'
+import _6f6c098b from '../layouts/default.vue'
+import _78270bd2 from '../layouts/users.vue'
+
+const layouts = { "_auth": _2d217e9e,"_default": _6f6c098b,"_users": _78270bd2 }
 
 
 
