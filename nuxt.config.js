@@ -13,5 +13,8 @@ export default {
   css: ['assets/main.css'],
   router: {
     middleware: 'stats'
-  }
+  }, 
+  modules: [
+    ['~/modules/simple', {token: '123'}]
+  ]
 }
