@@ -1,4 +1,4 @@
 export default () => {
-  console.log('stats middleware triggered');
+  console.log('[stats] middleware triggered');
 }
  

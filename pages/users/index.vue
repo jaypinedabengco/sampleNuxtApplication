@@ -6,6 +6,7 @@
         table
           thead
             tr
+              th preview
               th fullname
               th email
               th birthdate
@@ -14,6 +15,8 @@
               th action
           tbody
             tr(v-for="(user) in users")
+              td
+                img(:src="user.picture.thumbnail")
               td {{user.name.title}} {{user.name.first}} {{user.name.last}}
               td {{user.email}}
               td {{user.dob.date | formatBirthdate}}
