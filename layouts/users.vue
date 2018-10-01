@@ -1,5 +1,6 @@
 <template lang="pug">
     div.container
+        nuxt-link(to="/") home
         h1 User Page
         nuxt
 </template>

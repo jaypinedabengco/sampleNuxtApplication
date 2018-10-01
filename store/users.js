@@ -43,7 +43,12 @@ export const actions = {
 
         commit(MUTATION_TYPES.ADD_ALL, results) // add users
     }, 
-    selectUserByUUID: async({commit}, options) => {
-        commit(MUTATION_TYPES.SET_SELECTED_BY_UUID, options.uuid)
+    selectUserByUUID: async({state, commit}, options = {}) => {
+        const {uuid} = options
+        // if has selected & selected is same as fetch
+        if ( state.selected && state.selected.login.uuid === uuid ) {
+            return;
+        }
+        commit(MUTATION_TYPES.SET_SELECTED_BY_UUID, uuid)
     }
 }

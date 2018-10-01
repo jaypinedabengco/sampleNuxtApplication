@@ -1,7 +1,7 @@
 <template lang="pug">
     div
       div
-        a(@click="refresh()") Refresh
+        a(@click="refresh()") {{refreshing ? 'Refreshing...' : 'Refresh'}}
       div
         table
           thead
@@ -27,21 +27,11 @@
 <script>
 import axios from 'axios'
 import moment from 'moment'
+import { mapState } from 'vuex'
 
 const RESULT_SIZE = 15
 
 export default {
-  asyncData: async ({store}) => {
-    const {users} = store.state
-    // if empty, then trigger update
-    if ( users.list.length <= 0 ) {
-      await store.dispatch({
-        type: 'users/initialize', 
-        results: RESULT_SIZE
-      })
-    }
-    return {users : users.list}
-  },
   layout: 'users',
   transition: "users",
   head() {
@@ -49,18 +39,38 @@ export default {
       title: "World"
     }
   },
-  data() {
-    return {
-      ids: []
-    };
-  },
-  methods: {
-    async refresh () {
-      console.log(this.$store)
-       await this.$store.dispatch({
+  fetch: async ({store}) => {
+    const {users} = store.state
+    // if empty, then trigger update
+    if ( users.list.length === 0 ) {
+      await store.dispatch({
         type: 'users/initialize', 
         results: RESULT_SIZE
       })
+    }
+  },
+  data() {
+    return {
+      refreshing: false
+    }
+  },
+  computed: {
+    ...mapState('users/', {
+      users: state => state.list
+    })
+  },
+  methods: {
+    async refresh () {
+      if ( this.refreshing ) {
+        return
+      }
+
+      this.refreshing = true
+      await this.$store.dispatch({
+        type: 'users/initialize', 
+        results: RESULT_SIZE
+      })
+      this.refreshing = false
     }
   },
   filters: {

@@ -19,32 +19,33 @@
 
 <script>
 import axios from 'axios'
+import { mapState } from 'vuex'
 
 export default {
   layout: 'users',
   transition: 'users',
-  asyncData: async ({store, params, redirect}) => {
+  asyncData: async ({store, redirect}) => {
     const {users} = store.state
-
     // if list is empty, then revert back to list
     if ( users.list.length === 0 ) {
       return redirect('/users/')
     }
-
+  }, 
+  fetch: async ({store, params}) => {
+    const {users} = store.state
     // trigger set by id
     await store.dispatch({
       type: 'users/selectUserByUUID', 
       uuid: params.id
     })
-
-    // add individual user
-    return {
-      user_uuid: params.id, 
-      user: users.selected,  
+  },
+  computed: {
+    ...mapState('users/', {
+      user: 'selected'
+    }),
+    user_uuid() {
+      return this.$route.params.id
     }
-  }, 
-  created() {
-    console.log(this.user)
   }
 }
 </script>
@@ -56,9 +57,5 @@ a {
   margin: 10px;
   background: #524f4f;
   color: white;
-}
-
-.note {
-  color: #f90000;
 }
 </style>
